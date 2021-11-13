@@ -1,6 +1,7 @@
 package com.board.portfolio.repository;
 
 import com.board.portfolio.domain.Member;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,6 +23,13 @@ public class MemberRepositoryImpl implements MemberRepository{
     @Override
     public Member findById(Long id) {
         return em.find(Member.class, id);
+    }
+
+    @Override
+    public Member findByEmail(String email) {
+        return em.createQuery("select m from Member m where m.email = :email",Member.class)
+                .setParameter("email", email)
+                .getSingleResult();
     }
 
     @Override
