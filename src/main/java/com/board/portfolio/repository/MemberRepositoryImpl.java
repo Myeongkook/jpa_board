@@ -1,10 +1,10 @@
 package com.board.portfolio.repository;
 
 import com.board.portfolio.domain.Member;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -27,9 +27,13 @@ public class MemberRepositoryImpl implements MemberRepository{
 
     @Override
     public Member findByEmail(String email) {
-        return em.createQuery("select m from Member m where m.email = :email",Member.class)
-                .setParameter("email", email)
-                .getSingleResult();
+        try {
+            return em.createQuery("select m from Member m where m.email = :email", Member.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
     }
 
     @Override

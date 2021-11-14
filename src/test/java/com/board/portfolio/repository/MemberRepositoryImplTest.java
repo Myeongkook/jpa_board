@@ -25,8 +25,8 @@ class MemberRepositoryImplTest {
     @DisplayName("회원가입 테스트")
     public void signupTest(){
         Member member = new Member("myeongkook4@vivans.net", "1234", "tester");
-        Member signup = memberService.signup(member);
-        assertThat(member.getNickname()).isEqualTo("tester");
+        int signup = memberService.signup(member);
+        assertThat(signup).isEqualTo(1);
     }
 
     @Test
