@@ -18,6 +18,17 @@ public class MemberController {
         return "signup";
     }
 
+    @RequestMapping(value = "signup",method = RequestMethod.POST)
+    public String signupMember(Member member){
+        int signup = memberService.signup(member);
+        if(signup==1){
+            return "redirect:/";
+        }else{
+            return "signup";
+        }
+
+    }
+
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public String login(){
         return "login";
